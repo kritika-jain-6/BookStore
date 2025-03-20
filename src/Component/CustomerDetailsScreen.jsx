@@ -83,23 +83,24 @@ const CustomerDetailsModal = ({ isVisible, onClose }) => {
 
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fff" },
+  container: { flex: 1, justifyContent: "flex-end", alignItems: "center", backgroundColor: "#fff" },
   heading: { fontSize: 20, fontWeight: "bold", marginBottom: 10 },
   input: { backgroundColor: "#f9f9f9", padding: 10, marginBottom: 10, borderRadius: 5, borderWidth: 1, borderColor: "#ddd" },
   button: { backgroundColor: "#a00", padding: 12, borderRadius: 5, alignItems: "center" },
   buttonText: { color: "#fff", fontWeight: "bold" },
   modalBackground: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-end",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Dark background for the modal
   },
   modalContainer: {
-    width: "80%",
+    width: "95%",
     backgroundColor: "#fff",
     padding: 20,
     borderRadius: 10,
-    alignItems: "center",
+    justifyContent:'flex-end'
+  
   },
 });
 

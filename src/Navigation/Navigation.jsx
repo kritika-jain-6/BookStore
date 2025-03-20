@@ -2,26 +2,46 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import LoginScreen from '../Auth/LoginScreen';
-import SignUpScreen from '../Auth/SignUpScreen';
-import Cart from '../Component/Cart'; // Your cart screen
-import WishList from '../Component/WishList'; // Your wishlist screen
+import AuthScreen from '../Auth/AuthScreen';
+import Cart from '../Screens/Cart'; // Your cart screen
+import WishList from '../Screens/WishList'; // Your wishlist screen
 import LandingPage from '../Screens/LandingPage';
-import OrderConfirmation from '../Component/OrderConfirmation';
+import OrderConfirmation from '../Screens/OrderConfirmation';
+import Search from '../Component/Search';
 
-const Stack =createNativeStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
-      <Stack.Navigator initialRouteName="LandingPage">
-        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{headerShown:false}}/>
-        <Stack.Screen name="SignUpScreen" component={SignUpScreen} options={{headerShown:false}}/>
-        <Stack.Screen name="LandingPage" component={LandingPage} options={{headerShown:false}} />
-        <Stack.Screen name="Cart" component={Cart} options={{headerShown:false}}/>
-        <Stack.Screen name="WishList" component={WishList}  options={{headerShown:false}}/>
-        <Stack.Screen name="OrderConfirmation" component={OrderConfirmation}  options={{headerShown:false}}/>
+    <Stack.Navigator initialRouteName="AuthScreen">
+      <Stack.Screen
+        name="AuthScreen"
+        component={AuthScreen}
+        options={{headerShown: false}}
+      />
 
-      </Stack.Navigator>
+      <Stack.Screen
+        name="LandingPage"
+        component={LandingPage}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Cart"
+        component={Cart}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen name="Search" component={Search} options={{headerShown:false}}/> 
+      <Stack.Screen
+        name="WishList"
+        component={WishList}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="OrderConfirmation"
+        component={OrderConfirmation}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
   );
 };
 

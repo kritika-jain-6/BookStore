@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native';  // Import useNavigation
+import { useNavigation } from '@react-navigation/native';
 
 const Header = () => {
   const navigation = useNavigation(); 
@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <View style={styles.viewContainer}>
       <TouchableOpacity onPress={goBack}>
-      <Image source={require('../Assets/logo.jpg')} style={styles.image} />
+        <Image source={require('../Assets/logo.jpg')} style={styles.image} />
       </TouchableOpacity>
       <Text style={styles.textLogo}>BookStore</Text>
       <View style={styles.iconContainer}>

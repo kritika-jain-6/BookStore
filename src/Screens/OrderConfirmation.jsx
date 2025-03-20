@@ -1,15 +1,21 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import Header from './Header';
+import Header from '../Component/Header';
+import { useNavigation } from '@react-navigation/native';
+
 
 const OrderConfirmation = () => {
+  const navigation =useNavigation();
+  const handlenavigation=()=>{
+    navigation.navigate('LandingPage');
+  }
   return (
     <View style={styles.container}>
       <Header />
 
       <View style={styles.content}>
         <Image
-          source={{uri: 'https://example.com/confetti.png'}}
+          source={require('../Assets/orderimage.jpg')}
           style={styles.image}
         />
         <Text style={styles.successText}>Order Placed Successfully</Text>
@@ -17,7 +23,7 @@ const OrderConfirmation = () => {
           Hurray!!! Your order is confirmed. The order ID is #123456. Save the
           order ID for further communication.
         </Text>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handlenavigation}>
           <Text style={styles.buttonText}>CONTINUE SHOPPING</Text>
         </TouchableOpacity>
       </View>
@@ -41,7 +47,7 @@ const OrderConfirmation = () => {
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: '#fff', alignItems: 'center'},
   content: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-  image: {width: 100, height: 100, marginBottom: 20},
+  image: {width: 300, height: 200, marginBottom: 20},
   successText: {fontSize: 20, fontWeight: 'bold', color: '#333'},
   message: {textAlign: 'center', color: '#666', marginVertical: 10},
   button: {

@@ -1,23 +1,17 @@
-import { View, Text, SafeAreaView } from 'react-native'
-import React from 'react'
-import LandingPage from './src/Screens/LandingPage';
-import Navigation from './src/Navigation/Navigation';
-import { NavigationContainer } from '@react-navigation/native';
-import WishList from './src/Component/WishList';
-import Cart from './src/Component/Cart';
-
-
-
-
+import React from 'react';  // Only one import for React is needed
+import { Provider } from 'react-redux';  // Import the Provider component
+import { NavigationContainer } from '@react-navigation/native';  // Import the NavigationContainer
+import Navigation from './src/Navigation/Navigation';  // Import your Navigation component
+import Store from './src/Redux/Store';  // Import the store
 
 const App = () => {
   return (
-  
-     <NavigationContainer>
-       <Navigation/>
-     </NavigationContainer>
- 
-  )
-}
+    <Provider store={Store}>
+      <NavigationContainer>
+        <Navigation />
+      </NavigationContainer>
+    </Provider>
+  );
+};
 
-export default App
+export default App;

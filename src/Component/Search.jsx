@@ -1,40 +1,59 @@
-import { View, Text } from 'react-native'
-import React from 'react'
 import React, { useState } from 'react';
-import { View, TextInput, FlatList, Text, StyleSheet } from 'react-native';
-import BookData from './BookData';
-
-BookData();
+import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
+import BookData from './BookData'; // Import the BookData array
 
 const Search = () => {
-  const [searchText, setSearchText] = useState("");
-  const [filteredData, setFilteredData] = useState(DATA);
+  const navigation = useNavigation();
+  const [searchText, setSearchText] = useState('');
+  const [filteredData, setFilteredData] = useState(BookData); // Initializing with full BookData
 
+  // Handle search text change
   const handleSearch = (text) => {
-    setSearchText(text);
-    if (text) {
-      const newData = DATA.filter((item) =>
-        item.name.toLowerCase().includes(text.toLowerCase())
-      );
-      setFilteredData(newData);
+    setSearchText(text.trim()); // Trim leading/trailing whitespace
+
+    if (text.trim()) {
+      const newData = BookData.filter((item) => {
+        // Ensure case-insensitive search and check for matching name
+        return item.name?.toLowerCase().includes(text.toLowerCase().trim());
+      });
+
+      if (newData.length === 0) {
+        setFilteredData([]); // Book not found
+      } else {
+        setFilteredData(newData); // Otherwise, set filtered data to the new filtered list
+      }
     } else {
-      setFilteredData(DATA);
+      setFilteredData(BookData); // If search text is empty, show all data
     }
   };
 
   return (
     <View style={styles.container}>
+      {/* Back Button */}
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+        <Icon name="arrow-back" size={30} color="#c52026" />
+      </TouchableOpacity>
+
+      {/* Search Input */}
       <TextInput
         style={styles.searchInput}
-        placeholder="Search..."
+        placeholder="Search for books..."
         value={searchText}
-        onChangeText={handleSearch}
+        onChangeText={handleSearch} // Trigger search when text changes
       />
-      <FlatList
-        data={filteredData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>}
-      />
+
+      {/* Display "Book Not Found" if no results */}
+      {filteredData.length === 0 ? (
+        <Text style={styles.notFoundText}>Book not found</Text>
+      ) : (
+        <FlatList
+          data={filteredData}
+          keyExtractor={(item) => item.id.toString()} // Ensure the key is a string
+          renderItem={({ item }) => <Text style={styles.item}>{item.name}</Text>} // Display book name
+        />
+      )}
     </View>
   );
 };
@@ -48,13 +67,26 @@ const styles = StyleSheet.create({
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 20,
+    marginTop: 50,
+    marginBottom: 50,
     paddingHorizontal: 10,
   },
   item: {
     padding: 10,
     fontSize: 18,
     height: 44,
+  },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 10,
+    zIndex: 1,
+  },
+  notFoundText: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: '#c52026',
+    marginTop: 20,
   },
 });
 
