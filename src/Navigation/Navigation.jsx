@@ -2,7 +2,8 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import AuthScreen from '../Auth/AuthScreen';
+import LoginScreen from '../Auth/LoginScreen';
+import SignUpScreen from '../Auth/SignUpScreen'; // Your signup screen
 import Cart from '../Screens/Cart'; // Your cart screen
 import WishList from '../Screens/WishList'; // Your wishlist screen
 import LandingPage from '../Screens/LandingPage';
@@ -13,12 +14,9 @@ const Stack = createNativeStackNavigator();
 
 const Navigation = () => {
   return (
-    <Stack.Navigator initialRouteName="AuthScreen">
-      <Stack.Screen
-        name="AuthScreen"
-        component={AuthScreen}
-        options={{headerShown: false}}
-      />
+    <Stack.Navigator initialRouteName="LandingPage">
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
 
       <Stack.Screen
         name="LandingPage"

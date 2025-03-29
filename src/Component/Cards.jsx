@@ -8,87 +8,91 @@ import { addToWishList, removeFromWishList } from '../Redux/Slice/WishListReduce
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
+const BookItem = ({ book, setSelectedBook, setModalVisible }) => {
+  const navigation = useNavigation();
+
+  const wishlist = useSelector((state) => state.WishList?.data) || [];
+  const cart = useSelector((state) => state.Cart?.data) || []
+  const dispatch = useDispatch();
+
+
+  // wishlist function 
+  const wishListBook = wishlist.includes(book);
+  const handleFavoritePress = (book) => {
+    const isBookInWishlist = wishListBook;
+    if (isBookInWishlist) {
+      dispatch(removeFromWishList(book.id));
+    } else {           
+      dispatch(addToWishList(book));      
+    }
+    // Navigate to the Wishlist screen after pressing the favorite icon
+    // navigation.navigate('WishList'); // Replace 'WishList' with the correct screen name
+  };
+
+  // cart function
+  const handleAddToCart = (book) => {
+    if (book) {
+      dispatch(addToCart({book:book,quantity:1}));
+      // navigation.navigate('Cart'); // Navigate to the cart screen after adding
+    }
+  };
+  
+  if (!book) return null; // Safe check if book is undefined
+  return (
+    <View style={styles.container}>
+      <View style={{ backgroundColor: '#f5f5f5', alignItems: 'center' }}>
+        <TouchableOpacity
+          onPress={() => {
+            setSelectedBook(book);
+            setModalVisible(true);
+          }}
+        >
+          <Image source={book.image} style={styles.image} />
+        </TouchableOpacity>
+      </View>
+      <View style={{ justifyContent: 'space-between' }}>
+        <Text style={styles.title}>{book.title}</Text>
+        <Text style={styles.author}>by {book.author}</Text>
+        <Text style={styles.title}>
+          Rs.{book?.price ?? 'N/A'}{'   '}
+          <Text style={styles.oldPrice}>
+            Rs.{book?.olderPrice ?? 'N/A'}
+          </Text>
+        </Text>
+        <View style={{ flexDirection: 'row', marginTop: 15, marginBottom: 15 }}>
+          <TouchableOpacity onPress={() => handleFavoritePress(book)}>
+            <Icon
+              name={wishListBook ? 'favorite' : 'favorite-outline'}
+              size={30}
+              color={'#c52026'}
+              style={styles.iconbutton}
+            />
+          </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => handleAddToCart(book)}>
+              {cart.findIndex(item => item.id == book.id) > -1 ? (
+                <Text style={styles.buttonText}>ADDED TO BAG</Text>
+              ) : (
+                <Text style={styles.buttonText}>ADD TO BAG</Text>
+              )}
+              
+            </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
+};
+
 const Cards = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
-
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-
-  // Get the wishlist from Redux state
-  const wishlist = useSelector((state) => state.wishlist?.wishlist || []);
-
-  const handleFavoritePress = (book) => {
-    const isBookInWishlist = wishlist.includes(book.id);
-    if (isBookInWishlist) {
-      dispatch(removeFromWishList(book.id));
-    } else {
-      dispatch(addToWishList(book));
-    }
-    // Navigate to the Wishlist screen after pressing the favorite icon
-    navigation.navigate('WishList'); // Replace 'WishList' with the correct screen name
-  };
-
-  const handleAddToCart = (book) => {
-    if (book) {
-      dispatch(addToCart(book));
-      navigation.navigate('Cart'); // Navigate to the cart screen after adding
-    }
-  };
-
-  const BookItem = ({ book }) => {
-    if (!book) return null; // Safe check if book is undefined
-
-    const isBookInWishlist = wishlist.includes(book.id);
-
-    return (
-      <View style={styles.container}>
-        <View style={{ backgroundColor: '#f5f5f5', alignItems: 'center' }}>
-          <TouchableOpacity
-            onPress={() => {
-              setSelectedBook(book);
-              setModalVisible(true);
-            }}
-          >
-            <Image source={book.image} style={styles.image} />
-          </TouchableOpacity>
-        </View>
-        <View style={{ justifyContent: 'space-between' }}>
-          <Text style={styles.title}>{book.title}</Text>
-          <Text style={styles.author}>by {book.author}</Text>
-          <Text style={styles.title}>
-            Rs.{book?.price ?? 'N/A'}{'   '}
-            <Text style={styles.oldPrice}>
-              Rs.{book?.olderPrice ?? 'N/A'}
-            </Text>
-          </Text>
-          <View style={{ flexDirection: 'row', marginTop: 15, marginBottom: 15 }}>
-            <TouchableOpacity onPress={() => handleFavoritePress(book)}>
-              <Icon
-                name={isBookInWishlist ? 'favorite' : 'favorite-outline'}
-                size={30}
-                color={'black'}
-                style={styles.iconbutton}
-              />
-            </TouchableOpacity>
-            <View>
-              <TouchableOpacity style={styles.button} onPress={() => handleAddToCart(book)}>
-                <Text style={styles.buttonText}>ADD TO BAG</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </View>
-    );
-  };
-
+ 
   return (
     <View>
       <FlatList
         data={BookData}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
-        renderItem={({ item }) => <BookItem book={item} />}
+        renderItem={({ item }) => <BookItem book={item} setSelectedBook={setSelectedBook} setModalVisible={setModalVisible} />}
       />
 
       {selectedBook && (
@@ -128,6 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 15,
   },
+ 
   iconbutton: {
     borderRadius: 4,
     borderWidth: 1,

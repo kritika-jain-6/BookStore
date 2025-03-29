@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,15 +6,12 @@ import { addToWishList, removeFromWishList } from '../Redux/Slice/WishListReduce
 import Header from '../Component/Header';
 import BookModal from '../Component/BookModal';
 
-const WishList = () => {
+
+const BookItem = ({ book }) => {
   const dispatch = useDispatch();
-  const wishListItems = useSelector((state) => state.wishlist?.wishlist || []); // Directly access the wishlist from Redux
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedBook, setSelectedBook] = useState(null);
-
-  // Handle Add to Wishlist
-  const handleAddToWishlist = (book) => {
+   // Handle Add to Wishlist
+   const handleAddToWishlist = (book) => {
     dispatch(addToWishList(book)); // Add full book object
   };
 
@@ -23,43 +20,45 @@ const WishList = () => {
     dispatch(removeFromWishList(bookId)); // Remove by ID
   };
 
-  const BookItem = ({ book }) => {
-    const isInWishlist = wishListItems.some((item) => item.id === book.id);
 
-    return (
-      <View style={styles.container}>
-        <View style={{ backgroundColor: '#f5f5f5', alignItems: 'center' }}>
-          <TouchableOpacity onPress={() => { setSelectedBook(book); setModalVisible(true); }}>
-            <Image source={book.image} style={styles.image} />
+  return (
+    <View style={styles.container}>
+      <View style={{ backgroundColor: '#f5f5f5', alignItems: 'center' }}>
+        <TouchableOpacity onPress={() => { setSelectedBook(book); setModalVisible(true); }}>
+          <Image source={book.image} style={styles.image} />
+        </TouchableOpacity>
+      </View>
+      <View style={{ justifyContent: 'space-between' }}>
+        <Text style={styles.title}>{book.title}</Text>
+        <Text style={styles.author}>by {book.author}</Text>
+        <Text style={styles.title}>
+          Rs.{book.price} {'   '}
+          <Text style={styles.oldPrice}>Rs.{book.olderPrice}</Text>
+        </Text>
+        <View style={{ flexDirection: 'row', marginTop: 15, marginBottom: 15 }}>
+          <TouchableOpacity onPress={() => handleRemoveFromWishlist(book.id)}>
+            <Icon
+              name="favorite"
+              size={30}
+              color={'#c52026'}
+              style={styles.iconbutton}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => handleRemoveFromWishlist(book.id)} style={styles.button}>
+            <Text style={styles.title}>
+              REMOVE FROM WISHLIST
+            </Text>
           </TouchableOpacity>
         </View>
-        <View style={{ justifyContent: 'space-between' }}>
-          <Text style={styles.title}>{book.title}</Text>
-          <Text style={styles.author}>by {book.author}</Text>
-          <Text style={styles.title}>
-            Rs.{book.price} {'   '}
-            <Text style={styles.oldPrice}>Rs.{book.olderPrice}</Text>
-          </Text>
-          <View style={{ flexDirection: 'row', marginTop: 15, marginBottom: 15 }}>
-            <TouchableOpacity onPress={() => handleRemoveFromWishlist(book.id)}>
-              <Icon
-                name="favorite"
-                size={30}
-                color={isInWishlist ? '#c52026' : '#ccc'}
-                style={styles.iconbutton}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleAddToWishlist(book)} style={styles.button}>
-              <Text style={styles.title}>
-                {isInWishlist ? 'REMOVE FROM WISHLIST' : 'ADD TO WISHLIST'}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
       </View>
-    );
-  };
-
+    </View>
+  );
+};
+const WishList = () => {
+      const wishListItems = useSelector((state) => state.WishList.data) || [];
+      console.log(wishListItems);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedBook, setSelectedBook] = useState(null);
   return (
     <View style={{ flex: 1 }}>
       <Header />

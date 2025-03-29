@@ -1,8 +1,8 @@
 // WishListReducer.js
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-  wishlist: [],
+  data: [],
 };
 
 const WishListReducer = createSlice({
@@ -12,18 +12,18 @@ const WishListReducer = createSlice({
     addToWishList: (state, action) => {
       const book = action.payload;
       // Check if the book is already in the wishlist to prevent duplicates
-      const existingBook = state.wishlist.find(item => item.id === book.id);
+      const existingBook = state.data.includes(item => item.id === book.id);
       if (!existingBook) {
-        state.wishlist.push(book);
+        state.data.push(book);
       }
     },
     removeFromWishList: (state, action) => {
       const bookId = action.payload;
-      state.wishlist = state.wishlist.filter(book => book.id !== bookId);
+      state.data = state.data.filter(book => book.id !== bookId);
     },
   },
 });
 
-export const { addToWishList, removeFromWishList } = WishListReducer.actions;
+export const {addToWishList, removeFromWishList} = WishListReducer.actions;
 
 export default WishListReducer.reducer;
