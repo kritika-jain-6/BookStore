@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Image } from 'react-native';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+
 
   const handleLogin = () => {
     if (!email || !password) {
@@ -12,10 +15,47 @@ const LoginScreen = ({ navigation }) => {
     }
     Alert.alert('Success', 'Login successful!');
     console.log('Logging in with:', email, password);
-    
-    // Navigate to the Landing page after successful login
     navigation.navigate('LandingPage'); 
   };
+
+  const handleGoogleSignin = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      await GoogleSignin.signOut();
+      const user = await GoogleSignin.signIn();
+      console.log(user);
+      if(!user){
+        Alert.alert('Error', 'Google Sign-In failed');
+        return;
+      }
+     
+      navigation.navigate('LandingPage');
+    } catch (error) {
+      console.log('Google Sign-In Error:', error);
+      Alert.alert('Error', error.message || 'Google Sign-In failed');
+    }
+  };
+
+//   const handleGoogleSignin = async () => {
+//     try {
+//         GoogleSignin.configure({
+//             offlineAccess: false,
+//             webClientId:
+//                 '678953667370-7n1hdbind9u7gf1mp4221vrhtu7u56ib.apps.googleusercontent.com',
+//             scopes: ['profile', 'email'],
+//         });
+//         await GoogleSignin.hasPlayServices();
+//         const userInfo = await GoogleSignin.signIn();
+//         const {idToken} = await GoogleSignin.signIn();
+//         const googleCredentials = auth.GoogleAuthProvider.credential(idToken);
+//         await auth().signInWithCredential(googleCredentials);
+//         navigation.navigate('LandingPage');
+//         return userInfo;
+//     } catch (error) {
+//         console.log('=> Google Sign In', error);
+//         return null;
+//     }
+// };
 
   return (
     <View style={styles.container}>
@@ -43,10 +83,7 @@ const LoginScreen = ({ navigation }) => {
       <Text style={styles.orText}>OR</Text>
 
       <View style={styles.socialButtons}>
-        <TouchableOpacity style={[styles.socialButton, styles.facebook]}>
-          <Text style={styles.socialButtonText}>Facebook</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.socialButton, styles.google]}>
+        <TouchableOpacity style={[styles.socialButton, styles.google]} onPress={handleGoogleSignin}>
           <Text style={styles.socialButtonText}>Google</Text>
         </TouchableOpacity>
       </View>
@@ -118,9 +155,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     marginHorizontal: 5,
-  },
-  facebook: {
-    backgroundColor: '#4267B2',
   },
   google: {
     backgroundColor: '#db4a39',
