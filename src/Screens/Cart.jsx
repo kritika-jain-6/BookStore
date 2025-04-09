@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   quantityContainer: { flexDirection: 'row', alignItems: 'center', marginTop: 10 },
   quantityButton: { padding: 8, borderWidth: 1, borderColor: '#ccc', borderRadius: 5 },
   quantityText: { marginHorizontal: 10, fontSize: 16, color: 'black' },
-  customerDetails: { flexDirection: 'row', justifyContent: 'space-between', padding: 16, marginBottom: 20 },
+  customerDetails: { flexDirection: 'row', justifyContent: 'space-between', padding: 16, marginBottom: 70 },
   customerTitle: { fontSize: 16, fontWeight: 'bold', color: 'black' },
   footer: { position: 'absolute', bottom: 0, width: '100%', flexDirection: 'row', justifyContent: 'space-between', padding: 16 },
   totalText: { fontSize: 18, fontWeight: 'bold', color: 'black' },

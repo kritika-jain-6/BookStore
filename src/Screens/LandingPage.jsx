@@ -4,8 +4,6 @@ import Header from '../Component/Header';
 import Cards from '../Component/Cards';
 
 
-
-
 const LandingPage = () => {
   return (
     

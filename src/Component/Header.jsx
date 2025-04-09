@@ -2,11 +2,12 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import LandingPage from '../Screens/LandingPage';
 
 const Header = () => {
   const navigation = useNavigation(); 
   const goBack = () => {
-    navigation.goBack();
+    navigation.navigate('LandingPage'); // Navigate to the LandingPage screen
   }; // Access navigation object
 
   return (

@@ -1,0 +1,84 @@
+[
+    {
+      "id": 1,
+      "title": "Don't Make Me Think",
+      "author": "Steve Krug",
+      "price": 1500,
+      "olderPrice": 2000,
+      "image": "../Assets/book1.jpg",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "id": 2,
+      "title": "React Material-UI",
+      "author": "Steve Krug",
+      "price": 1500,
+      "olderPrice": 2000,
+      "image": "../Assets/book2.jpg",
+      "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    },
+    {
+      "id": 3,
+      "title": "Group Discussion",
+      "author": "Steve Krug",
+      "price": 1500,
+      "olderPrice": 2000,
+      "image": "../Assets/book3.jpg",
+      "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+    },
+    {
+      "id": 4,
+      "title": "UX for Dummies",
+      "author": "Steve Krug",
+      "price": 1500,
+      "olderPrice": 2000,
+      "image": "../Assets/book4.jpg",
+      "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+      "id": 5,
+      "title": "UX Design",
+      "author": "Steve Krug",
+      "price": 1500,
+      "olderPrice": 2000,
+      "image": "../Assets/book5.jpg",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "id": 6,
+      "title": "Zero To Infinity",
+      "author": "Steve Krug",
+      "price": 1500,
+      "olderPrice": 2000,
+      "image": "../Assets/book6.jpg",
+      "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    },
+    {
+      "id": 7,
+      "title": "UX Writing",
+      "author": "Steve Krug",
+      "price": 1500,
+      "olderPrice": 2000,
+      "image": "../Assets/book7.jpg",
+      "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+    },
+    {
+      "id": 8,
+      "title": "Design of Everyday",
+      "author": "Steve Krug",
+      "price": 1500,
+      "olderPrice": 2000,
+      "image": "../Assets/book8.jpg",
+      "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    },
+    {
+      "id": 9,
+      "title": "The Alchemist",
+      "author": "Paulo Coelho",
+      "price": 1500,
+      "olderPrice": 2000,
+      "image": "../Assets/book10.jpg",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    }
+  ]
+  

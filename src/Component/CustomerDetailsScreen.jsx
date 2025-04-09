@@ -57,10 +57,10 @@ const CustomerDetailsModal = ({ isVisible, onClose, onSave }) => {
 };
 
 const styles = StyleSheet.create({
-  modalBackground: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "rgba(0, 0, 0, 0.5)" },
-  modalContainer: { width: "90%", backgroundColor: "#fff", padding: 20, borderRadius: 10 },
+  modalBackground: { flex: 1, justifyContent: "flex-end", alignItems: "flex-end", backgroundColor: "rgba(0, 0, 0, 0.5)" },
+  modalContainer: { width: "100%", backgroundColor: "#fff", padding: 20, borderRadius: 10 },
   heading: { fontSize: 20, fontWeight: "bold", marginBottom: 10 },
-  input: { borderWidth: 1, borderColor: "#ddd", padding: 10, marginBottom: 10, borderRadius: 5 },
+  input: { borderWidth: 2, borderColor: "#ddd", padding: 10, marginBottom: 10, borderRadius: 40 },
   button: { backgroundColor: "#D32F2F", padding: 12, borderRadius: 5, alignItems: "center" },
   buttonText: { color: "#fff", fontWeight: "bold" },
 });
